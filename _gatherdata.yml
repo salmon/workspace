@@ -1,0 +1,6 @@
+- hosts: [ master, slave ]
+#  sudo: yes
+  gather_facts: no
+  remote_user: root
+  roles:
+    - gatherdata

@@ -1,0 +1,12 @@
+Log Design
++ CHECK {{ SERVICE_NAME }}
+---
++ COMMAND {{ CMD_NAME }}
+* CONTENT
++ RETURN {{ VALUE }}
+---
++ COMMAND {{ CMD_NAME }}
+* CONTENT
++ RETURN {{ VALUE }}
+---
++ END CHECK {{ SERVICE_NAME }}

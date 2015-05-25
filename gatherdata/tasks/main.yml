@@ -1,0 +1,24 @@
+# When exec curl 10.10.10.1:80, then hang. Why?
+- local_action: file name={{ ansible_output_dir }}/{{ timestamp }}/{{ inventory_hostname }} state=directory
+
+- name: Gather Environment file
+  script: gather.py /tmp/envdata_{{ timestamp }}/ {{ group_names[0] }}
+  # script: gather.py /tmp/envdata_{{ timestamp }}/
+  register: result
+  notify: transfer result file
+
+- name: Gather Kubernetes Log
+  fetch: src=/var/log/kubernetes/{{ item }} dest={{ ansible_output_dir }}/{{ timestamp }}/{{ inventory_hostname }}/ flat=yes
+  ignore_errors: true
+  register: trans_result
+  with_items:
+   - kube-apiserver.INFO
+   - kube-controller-manager.INFO
+   - kubelet.INFO
+   - kube-proxy.INFO
+   - kube-scheduler.INFO
+
+- local_action: copy content="{{ result.stderr }}" dest="{{ ansible_output_dir }}/{{ timestamp }}/{{ inventory_hostname }}/error.txt" 
+  when: result.stderr != ''
+
+- debug: msg="debug file is in {{ ansible_output_dir }}/{{ timestamp }}/{{ inventory_hostname }} "

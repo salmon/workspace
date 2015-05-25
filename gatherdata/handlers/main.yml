@@ -1,0 +1,2 @@
+- name: transfer result file
+  fetch: src=/tmp/envdata_{{ timestamp }}/result.txt dest={{ ansible_output_dir }}/{{ timestamp }}/{{ inventory_hostname }}/ flat=yes
