@@ -1,0 +1,13 @@
+{
+  "hostname":"inceptor",
+  "database":"default",
+  "transwarp_suites" : [
+    "useindex",
+    "lookupjoin"
+  ],
+  "jdbc_suites" : [
+    "jdbcfiltertest",
+    "jdbcglobalcombine",
+    "jdbcglobalsingle"
+  ]
+}
